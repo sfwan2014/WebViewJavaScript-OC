@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+	<head>
+		<title></title>
+		<meta charset=utf-8 />
+	</head>
+	<body>
+	<header align=center>
+		<h4>大白菜+</h4>
+	</header>
+	
+	<div align=center>
+		<p>姓名 <input id ="username" value="Fred" /></p>
+		
+		<p>密码 <input id = "password" value="123456" /></p>
+
+		<p><button type="button" onclick="loginActionURL()" style="height:35px;width:220px;background:#f57f18;border-radius:10px">登录(传统URL传值方式)</button></p>
+		<p><button type="button" onclick="loginActionJS()" style="height:35px;width:220px;background:#f57f18;border-radius:10px">登录(JSContext)</button></p>
+        <div id="result"></div>
+	</div>
+	
+	<script>
+	
+		// url传值
+		function loginActionURL(){
+			if(correctInputValue()==false){
+				return;
+			}
+			var name = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+			var url = "app://login?username="+name+"&password="+password;
+			window.location.href = url;
+		}
+		
+		// JSContext & WKWebView调用
+		function loginActionJS(){
+            if(!correctInputValue()){
+                return;
+            }
+            var name = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+<!--     插入对象时调用       -->
+<!--            window.appObj.login(name, password);-->
+<!--     插入函数时调用       -->
+            login(name, password);
+		}
+		
+		
+		function loginCallBack(msg){
+            var result = document.getElementById("result");
+            result.innerHTML=msg;
+            return 1000;
+		}
+		
+		function correctInputValue(){
+			var name = document.getElementById("username").value;
+			if(name.length == 0){
+				alert("请输入用户名");
+				return false;
+			}
+			var password = document.getElementById("password").value;
+			if(password.length == 0){
+				alert("请输入密码");
+				return false;
+			}
+			return true;
+		}
+		
+	</script>
+	
+
+	</body>
+</html>
